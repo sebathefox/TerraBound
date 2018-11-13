@@ -12,7 +12,7 @@ namespace Assets.Scripts.World
 
         void Start()
         {
-            for (int i = 0; i < 100; i++)
+            for (float i = 0; i < 100; i += 0.32f)
             {
                 Instantiate(Block, new Vector3(i, 0, 0), Quaternion.identity);
             }

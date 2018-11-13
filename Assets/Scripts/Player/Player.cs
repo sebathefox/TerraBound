@@ -25,12 +25,13 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         float translation = Input.GetAxis("Horizontal") * speed;
-
-        coll.
+        
 
         float js = Input.GetAxis("Jump") * speed;
 
         translation *= Time.fixedDeltaTime;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
 
         js *= Time.fixedDeltaTime;
 
