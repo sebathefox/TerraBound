@@ -12,9 +12,10 @@ namespace Assets.Scripts.World
 
         void Start()
         {
-            for (int i = 0; i < 100; i++)
+            for (float i = 0; i < 100; i += 0.32f)
             {
-                Instantiate(Block, new Vector3(i, 0, 0), Quaternion.identity);
+                float height = Mathf.PerlinNoise(0.0f, i);
+                Instantiate(Block, new Vector3(i, height, 0), Quaternion.identity);
             }
         }
     }

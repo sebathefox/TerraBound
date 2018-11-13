@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Common;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IHealth
 {
-
-    private Collider2D coll;
-
     public float speed = 10.0f;
+
+    protected int maxHealth = 100;
+
+    protected int defence = 0;
 
     // Use this for initialization
     void Start()
     {
-        coll = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -26,8 +27,6 @@ public class Player : MonoBehaviour
     {
         float translation = Input.GetAxis("Horizontal") * speed;
 
-        coll.
-
         float js = Input.GetAxis("Jump") * speed;
 
         translation *= Time.fixedDeltaTime;
@@ -35,6 +34,34 @@ public class Player : MonoBehaviour
         js *= Time.fixedDeltaTime;
 
         transform.Translate(translation, js, 0);
-        
+    }
+
+    public int Health { get; private set; }
+
+    public int GetMaxHp()
+    {
+        return maxHealth;
+    }
+
+    public void TakeDamage(double damage)
+    {
+        System.Random rnd = new System.Random();
+
+        this.Health = (int)((damage - (double)defence) * rnd.NextDouble());
+    }
+
+    public void AddHp(int hp)
+    {
+        this.Health += hp;
+    }
+
+    public void SetHp(int hp)
+    {
+        this.Health = hp;
+    }
+
+    public void SubtractHp(int hp)
+    {
+        this.Health -= hp;
     }
 }
