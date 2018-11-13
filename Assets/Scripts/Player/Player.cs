@@ -26,10 +26,6 @@ public class Player : MonoBehaviour, IHealth
     void FixedUpdate()
     {
         float translation = Input.GetAxis("Horizontal") * speed;
-<<<<<<< HEAD
-        
-=======
->>>>>>> 4072991527bad9ddb84b6690c1435802c81dfb5b
 
         float js = Input.GetAxis("Jump") * speed;
 
