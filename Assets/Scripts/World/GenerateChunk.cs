@@ -9,9 +9,6 @@ namespace Assets.Scripts.World
 {
     class GenerateChunk : MonoBehaviour
     {
-        public GameObject Grass;
-        public GameObject Stone;
-
         public int width;
         public float heightMultiplier;
 
@@ -22,6 +19,7 @@ namespace Assets.Scripts.World
 
         void Start()
         {
+            Block.InitBlocks();
             seed = Random.Range(-10000f, 10000f);
             Generate();
         }
@@ -31,15 +29,15 @@ namespace Assets.Scripts.World
             for (int i = 0; i < width; i++)
             {
                 int h = Mathf.RoundToInt(Mathf.PerlinNoise(seed, i / smoothness) * heightMultiplier) + heightAddition;
-                GameObject selectedTile;
+                Block selectedTile;
 
                 for (int j = 0; j < h; j++)
                 {
                     if (j < h - 4)
-                        selectedTile = Stone;
+                        selectedTile = Block.blocks[0].Value;
                     else
                     {
-                        selectedTile = Grass;
+                        selectedTile = Block.blocks[1].Value;
                     }
 
                     Instantiate(selectedTile, new Vector3(i, j), Quaternion.identity);
