@@ -15,12 +15,12 @@ namespace Assets.Scripts.World
         public float smoothness;
         public int heightAddition;
 
-        private float seed;
+        [HideInInspector]
+        public float seed;
 
         void Start()
         {
             Block.InitBlocks();
-            seed = Random.Range(-10000f, 10000f);
             Generate();
         }
 
@@ -28,7 +28,7 @@ namespace Assets.Scripts.World
         {
             for (int i = 0; i < width; i++)
             {
-                int h = Mathf.RoundToInt(Mathf.PerlinNoise(seed, i / smoothness) * heightMultiplier) + heightAddition;
+                int h = Mathf.RoundToInt(Mathf.PerlinNoise(seed, i + transform.position.x) / smoothness) * heightMultiplier) + heightAddition;
                 Block selectedTile;
 
                 for (int j = 0; j < h; j++)
@@ -40,7 +40,9 @@ namespace Assets.Scripts.World
                         selectedTile = Block.blocks[1].Value;
                     }
 
-                    Instantiate(selectedTile, new Vector3(i, j), Quaternion.identity);
+                    GameObject newTile = Instantiate(selectedTile, Vector3.zero, Quaternion.identity) as GameObject;
+                    newTile.transform.parent = this.gameObject.transform;
+                    newTile.transform.localPosition = new Vector3(i, j);
                 }
             }
         }

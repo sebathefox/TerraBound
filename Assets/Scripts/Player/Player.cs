@@ -31,6 +31,8 @@ public class Player : MonoBehaviour, IHealth
 
         translation *= Time.fixedDeltaTime;
 
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 0.1f);
+
         js *= Time.fixedDeltaTime;
 
         transform.Translate(translation, js, 0);
