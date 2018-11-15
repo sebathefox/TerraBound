@@ -7,7 +7,7 @@ using Assets.Scripts.Blocks.Ores;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(SpriteRenderer), typeof(Transform))]
-public class Block : MonoBehaviour
+public class Block : MonoBehaviour, IObject
 {
     public static List<Type> blocks = new List<Type>();
 

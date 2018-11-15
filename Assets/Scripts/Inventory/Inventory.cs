@@ -2,25 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Common;
 using UnityEngine;
 using UnityEngine.UI;
+using Image = UnityEngine.Experimental.UIElements.Image;
 
 namespace Assets.Scripts.Inventory
 {
-    public class Inventory : MonoBehaviour
+    public class Inventory : MonoBehaviour, IInventory
     {
-        public Text InventoryText;
+        public Image background;
 
-        private int[] counts = new int[7];
+        private ItemStack[] counts = new ItemStack[18];
 
         void Update()
         {
             //InventoryText.text 
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                
+            }
         }
 
-        public void Add(int tileType, int count)
+        public void Add(ItemStack items, int count)
         {
 
+        }
+
+        public ItemStack Remove(int amount, int position)
+        {
+            return null;
         }
     }
 }
