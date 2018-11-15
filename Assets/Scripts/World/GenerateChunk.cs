@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Blocks;
+using Assets.Scripts.Blocks.Ores;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,23 +30,76 @@ namespace Assets.Scripts.World
         {
             for (int i = 0; i < width; i++)
             {
-                int h = Mathf.RoundToInt(Mathf.PerlinNoise(seed, i + transform.position.x) / smoothness) * heightMultiplier) + heightAddition;
-                Block selectedTile;
+                int h = Mathf.RoundToInt(Mathf.PerlinNoise(seed, (i + transform.position.x) / smoothness) * heightMultiplier) + heightAddition;
+                Type selectedTile;
 
                 for (int j = 0; j < h; j++)
                 {
                     if (j < h - 4)
-                        selectedTile = Block.blocks[0].Value;
+                        selectedTile = Block.blocks[1].Value;
                     else
                     {
-                        selectedTile = Block.blocks[1].Value;
+                        selectedTile = Block.blocks[0].Value;
                     }
 
-                    GameObject newTile = Instantiate(selectedTile, Vector3.zero, Quaternion.identity) as GameObject;
-                    newTile.transform.parent = this.gameObject.transform;
-                    newTile.transform.localPosition = new Vector3(i, j);
+                    Debug.Log(selectedTile);
+
+                    GameObject gob = new GameObject();
+                    gob.AddComponent(selectedTile);
+
+                    gob.transform.rotation = Quaternion.identity;
+                    gob.transform.position = Vector3.zero;
+
+                    gob.transform.parent = this.gameObject.transform;
+                    gob.transform.localPosition = new Vector3(i, j);
+
+                    if (selectedTile == typeof(BlockStone))
+                        gob.tag = "TileStone";
                 }
             }
+            Populate();
+        }
+
+        public void Populate()
+        {
+            foreach (GameObject o in GameObject.FindGameObjectsWithTag("TileStone"))
+            {
+                float random = Random.Range(0f, 100f);
+                Type selectedTile = null;
+
+                if (random <= BlockIron.NaturalSpawnChance)
+                {
+
+                    selectedTile = Block.blocks[2].Value;
+
+                }
+                else if (random <= BlockIron.NaturalSpawnChance)
+                {
+
+                    selectedTile = Block.blocks[2].Value;
+
+                }
+                
+                if (selectedTile != null)
+                {
+                    AddBlock(selectedTile, o.transform.position.x, o.transform.position.y);
+                    Destroy(o);
+                }
+            }
+        }
+
+        private void AddBlock(Type selectedTile, float i, float j)
+        {
+            GameObject gob = new GameObject();
+            gob.AddComponent(selectedTile);
+
+            gob.transform.rotation = Quaternion.identity;
+            gob.transform.position = Vector3.zero;
+            
+            gob.transform.position = new Vector3(i, j);
+
+            if (selectedTile == typeof(BlockStone))
+                gob.tag = "TileStone";
         }
     }
 }

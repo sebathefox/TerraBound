@@ -12,6 +12,7 @@ namespace Assets.Scripts.Blocks
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/stone");
             this.Hardness = 1.0f;
+            this.UnlocalizedName = "stone";
         }
     }
 }
