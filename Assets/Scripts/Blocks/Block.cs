@@ -9,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(BoxCollider2D), typeof(SpriteRenderer), typeof(Transform))]
 public class Block : MonoBehaviour
 {
-    public static List<KeyValuePair<string, Type>> blocks = new List<KeyValuePair<string, Type>>();
+    public static List<Type> blocks = new List<Type>();
 
     private float blockBreaked = 0.0f;
 
@@ -22,9 +22,9 @@ public class Block : MonoBehaviour
 
     public static void InitBlocks()
     {
-        blocks.Add(new KeyValuePair<string, Type>("grass", typeof(Block)));
-        blocks.Add(new KeyValuePair<string, Type>("stone", typeof(BlockStone)));
-        blocks.Add(new KeyValuePair<string, Type>("ore_iron", typeof(BlockIron)));
+        blocks.Add(typeof(Block));
+        blocks.Add(typeof(BlockStone));
+        blocks.Add(typeof(BlockIron));
     }
 
     void OnMouseOver()

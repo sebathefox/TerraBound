@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Blocks.Ores;
+using Assets.Scripts.Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -35,17 +36,19 @@ namespace Assets.Scripts.World
 
                 for (int j = 0; j < h; j++)
                 {
+                    // Places grass at the four highest positions
                     if (j < h - 4)
-                        selectedTile = Block.blocks[1].Value;
+                        selectedTile = Block.blocks[1];
+                    // Places stone
                     else
                     {
-                        selectedTile = Block.blocks[0].Value;
+                        selectedTile = Block.blocks[0];
                     }
-
-                    Debug.Log(selectedTile);
+                    
 
                     GameObject gob = new GameObject();
                     gob.AddComponent(selectedTile);
+                    gob.AddComponent<TileData>().tileType = Block.blocks.IndexOf(selectedTile);
 
                     gob.transform.rotation = Quaternion.identity;
                     gob.transform.position = Vector3.zero;
@@ -70,13 +73,13 @@ namespace Assets.Scripts.World
                 if (random <= BlockIron.NaturalSpawnChance)
                 {
 
-                    selectedTile = Block.blocks[2].Value;
+                    selectedTile = Block.blocks[2];
 
                 }
                 else if (random <= BlockIron.NaturalSpawnChance)
                 {
 
-                    selectedTile = Block.blocks[2].Value;
+                    selectedTile = Block.blocks[2];
 
                 }
                 
@@ -91,7 +94,7 @@ namespace Assets.Scripts.World
         private void AddBlock(Type selectedTile, float i, float j)
         {
             GameObject gob = new GameObject();
-            gob.AddComponent(selectedTile);
+            gob.AddComponent<TileData>().tileType = Block.blocks.IndexOf(selectedTile);
 
             gob.transform.rotation = Quaternion.identity;
             gob.transform.position = Vector3.zero;
