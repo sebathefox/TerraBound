@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using Assets.Scripts;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Blocks.Ores;
+using Assets.Scripts.Common;
+using Assets.Scripts.Common.Registry;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(BoxCollider2D), typeof(SpriteRenderer), typeof(Transform))]
 public class Block : MonoBehaviour, IObject
 {
-    public static List<Type> blocks = new List<Type>();
-
     private float blockBreaked = 0.0f;
     public bool destroyed = false;
 
@@ -23,9 +24,9 @@ public class Block : MonoBehaviour, IObject
 
     public static void InitBlocks()
     {
-        blocks.Add(typeof(Block));
-        blocks.Add(typeof(BlockStone));
-        blocks.Add(typeof(BlockIron));
+        Registry.Instance.BlockRegistry.Add(typeof(Block));
+        Registry.Instance.BlockRegistry.Add(typeof(BlockStone));
+        Registry.Instance.BlockRegistry.Add(typeof(BlockIron));
     }
 
     public void Mine()
@@ -57,6 +58,10 @@ public class Block : MonoBehaviour, IObject
     }
 
     public float Hardness { get; protected set; }
+
+    public Image Image { get; set; }
+
+    public int MaxStackSize { get; protected set; }
 
     public string UnlocalizedName { get; protected set; }
 }

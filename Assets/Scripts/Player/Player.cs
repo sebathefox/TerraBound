@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Assets.Scripts.Common;
 using UnityEngine;
 
+//TODO: Rewrite the player class as multiple components eg. a 'health' component and a 'movement' component
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IHealth
 {

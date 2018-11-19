@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Blocks
 {
-    class BlockStone : Block
+    public class BlockStone : Block
     {
         void Start()
         {
