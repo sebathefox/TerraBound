@@ -10,7 +10,7 @@ namespace Assets.Scripts.Blocks.Ores
     {
         void Start()
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/grass");
+            gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/iron_ore");
             this.Hardness = 1.5f;
             this.UnlocalizedName = "ore_iron";
         }

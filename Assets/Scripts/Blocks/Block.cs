@@ -12,6 +12,7 @@ public class Block : MonoBehaviour, IObject
     public static List<Type> blocks = new List<Type>();
 
     private float blockBreaked = 0.0f;
+    public bool destroyed = false;
 
     void Start()
     {
@@ -27,14 +28,24 @@ public class Block : MonoBehaviour, IObject
         blocks.Add(typeof(BlockIron));
     }
 
+    public void Mine()
+    {
+        Destroy(gameObject);
+    }
+
     void OnMouseOver()
     {
-        if(blockBreaked >= Hardness)
-            Destroy(gameObject);
+        if (blockBreaked >= Hardness)
+        {
+            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            this.destroyed = true;
+            //Destroy(gameObject);
+        }
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
-            blockBreaked += Time.deltaTime;    
+            blockBreaked += Time.deltaTime;
+            
         }
         else
             this.blockBreaked = 0.0f;

@@ -6,8 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour, IHealth
 {
-    public float speed = 10.0f;
-
+    private float speed = 10.0f;
+    
     protected int maxHealth = 100;
 
     protected int defence = 0;

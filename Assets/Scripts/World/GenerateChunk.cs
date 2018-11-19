@@ -95,6 +95,7 @@ namespace Assets.Scripts.World
         {
             GameObject gob = new GameObject();
             gob.AddComponent<TileData>().tileType = Block.blocks.IndexOf(selectedTile);
+            gob.AddComponent(selectedTile);
 
             gob.transform.rotation = Quaternion.identity;
             gob.transform.position = Vector3.zero;
