@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IHealth
     // Use this for initialization
     void Start()
     {
+        gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
     }
 
     // Update is called once per frame

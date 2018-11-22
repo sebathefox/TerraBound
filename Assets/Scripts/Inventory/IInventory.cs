@@ -23,7 +23,7 @@ namespace Assets.Scripts.Inventory
         /// </summary>
         /// <param name="stack">The <see cref="ItemStack"/> to add</param>
         /// <param name="position">The position of the <see cref="ItemStack"/></param>
-        void AddToStack(ItemStack stack, int position);
+        //void AddToStack(ItemStack stack, int position);
 
         /// <summary>
         /// Removes a full <see cref="ItemStack"/> from the inventory.

@@ -16,6 +16,8 @@ namespace Assets.Scripts.Inventory
         private int numSlots;
         private Transform[] slots;
 
+        private bool invEnabled = false;
+
         public void Start()
         {
             numSlots = slotHolder.transform.childCount;
@@ -23,15 +25,24 @@ namespace Assets.Scripts.Inventory
             DetectInventorySlots();
         }
 
-        public void AddStack(ItemStack stack, int position)
+        void Update()
         {
-            throw new NotImplementedException();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+
+                invEnabled = !invEnabled;
+            }
+            if (invEnabled)
+                inventory.SetActive(true);
+            else
+                inventory.SetActive(false);
         }
 
-        public void AddToStack(ItemStack stack, int position)
+        public void AddStack(ItemStack stack, int position)
         {
             try
             {
+                print("Trying to add " + stack.Item.UnlocalizedName + " to inventory");
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
                     slots[position].GetComponent<Slot>().Stack = stack;
@@ -60,7 +71,7 @@ namespace Assets.Scripts.Inventory
 
         public ItemStack RemoveStack(int position)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         private void DetectInventorySlots()

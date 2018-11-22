@@ -50,15 +50,15 @@ namespace Assets.Scripts.Inventory
         public void Add(GameObject item)
         {
 
-            for (int i = 0; i < slot; i++)
-            {
-                if (slots[i].GetComponent<Slot>().empty)
-                {
-                    Debug.Log("Added a new item: " + item.name);
-                    slots[i].GetComponent<Slot>().item = item;
-                    slots[i].GetComponent<Slot>().image = item.GetComponent<SpriteRenderer>().sprite;
-                }
-            }
+            //for (int i = 0; i < slot; i++)
+            //{
+            //    if (slots[i].GetComponent<Slot>().empty)
+            //    {
+            //        Debug.Log("Added a new item: " + item.name);
+            //        slots[i].GetComponent<Slot>().item = item;
+            //        slots[i].GetComponent<Slot>().image = item.GetComponent<SpriteRenderer>().sprite;
+            //    }
+            //}
         }
 
         public ItemStack Remove(int amount, int position)

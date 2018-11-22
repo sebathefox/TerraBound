@@ -17,21 +17,21 @@ public class Block : MonoBehaviour, IObject
 
     void Start()
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = SpriteLoader.GetSprite("grass");
+        gameObject.GetComponent<SpriteRenderer>().sprite = SpriteLoader.GetSprite("Blocks/grass");
         Hardness = 0.5f;
         this.UnlocalizedName = "grass";
     }
 
     public static void InitBlocks()
     {
-        Registry.Instance.BlockRegistry.Add(typeof(Block));
-        Registry.Instance.BlockRegistry.Add(typeof(BlockStone));
-        Registry.Instance.BlockRegistry.Add(typeof(BlockIron));
+        Registry.Instance.BlockRegistry.Add(new GameObject("" ,typeof(Block)));
+        Registry.Instance.BlockRegistry.Add(new GameObject("", typeof(BlockStone)));
+        Registry.Instance.BlockRegistry.Add(new GameObject("", typeof(BlockOre)));
     }
 
-    public void Mine()
+    public void DropItemStack()
     {
-        Destroy(gameObject);
+        //TODO: Find a way to put an ItemStack on the ground for the player to pickup.
     }
 
     void OnMouseOver()
@@ -57,7 +57,21 @@ public class Block : MonoBehaviour, IObject
         this.blockBreaked = 0.0f;
     }
 
-    public float Hardness { get; protected set; }
+    public Block SetUnlocalizedName(string unlocalizedName)
+    {
+        this.UnlocalizedName = unlocalizedName;
+        return this;
+    }
+
+    public Block SetOreSprite(string orePath)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
+            Resources.Load<Sprite>(orePath).texture), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
+
+        return this;
+    }
+
+    public float Hardness { get; set; }
 
     public Image Image { get; set; }
 

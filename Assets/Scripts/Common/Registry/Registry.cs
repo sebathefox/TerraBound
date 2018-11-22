@@ -15,10 +15,13 @@ namespace Assets.Scripts.Common.Registry
 
         static Registry()
         {
+            
         }
 
         protected Registry()
         {
+            BlockRegistry = new List<GameObject>();
+            ItemRegistry = new List<KeyValuePair<string, Type>>();
         }
 
         public static Registry Instance
@@ -26,7 +29,7 @@ namespace Assets.Scripts.Common.Registry
             get { return instance; }
         }
 
-        public List<Type> BlockRegistry { get; set; }
+        public List<GameObject> BlockRegistry { get; set; }
 
         public List<KeyValuePair<string, Type>> ItemRegistry { get; set; }
     }

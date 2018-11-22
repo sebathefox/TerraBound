@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Blocks.Ores;
+using Assets.Scripts.Common;
+using Assets.Scripts.Common.Registry;
 using Assets.Scripts.Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -38,17 +40,16 @@ namespace Assets.Scripts.World
                 {
                     // Places grass at the four highest positions
                     if (j < h - 4)
-                        selectedTile = Block.blocks[1];
+                        selectedTile = Registry.Instance.BlockRegistry[1].GetComponent<Block>().GetType();
                     // Places stone
                     else
                     {
-                        selectedTile = Block.blocks[0];
+                        selectedTile = Registry.Instance.BlockRegistry[0].GetComponent<Block>().GetType();
                     }
                     
 
                     GameObject gob = new GameObject();
                     gob.AddComponent(selectedTile);
-                    gob.AddComponent<TileData>().tileType = Block.blocks.IndexOf(selectedTile);
 
                     gob.transform.rotation = Quaternion.identity;
                     gob.transform.position = Vector3.zero;
@@ -65,45 +66,41 @@ namespace Assets.Scripts.World
 
         public void Populate()
         {
-            foreach (GameObject o in GameObject.FindGameObjectsWithTag("TileStone"))
+            Dictionary<string, float>.Enumerator pair = OreSpawn.SpawnChance.GetEnumerator();
+
+            while (pair.MoveNext())
             {
-                float random = Random.Range(0f, 100f);
-                Type selectedTile = null;
-
-                if (random <= BlockIron.NaturalSpawnChance)
+                foreach (GameObject o in GameObject.FindGameObjectsWithTag("TileStone"))
                 {
+                    
 
-                    selectedTile = Block.blocks[2];
+                    float random = Random.Range(0f, 100f);
+                    Type selectedTile = Registry.Instance.BlockRegistry[2].GetComponent<Block>().GetType();
 
-                }
-                else if (random <= BlockIron.NaturalSpawnChance)
-                {
+                    GameObject ore = new GameObject("tmp", typeof(BlockOre));
 
-                    selectedTile = Block.blocks[2];
-
-                }
-                
-                if (selectedTile != null)
-                {
-                    AddBlock(selectedTile, o.transform.position.x, o.transform.position.y);
-                    Destroy(o);
+                    
+                        KeyValuePair<string, float> par = pair.Current;
+                        if (random <= par.Value)
+                            AddOre(selectedTile, o.transform.position, par.Key, "Sprites/Blocks/" + par.Key);
+                    Destroy(ore);
                 }
             }
+            pair.Dispose();
         }
 
-        private void AddBlock(Type selectedTile, float i, float j)
+        private void AddOre(Type selectedTile, Vector3 pos,string unlocalizedName, string spritePath, float hardness = 1.0f)
         {
-            GameObject gob = new GameObject();
-            gob.AddComponent<TileData>().tileType = Block.blocks.IndexOf(selectedTile);
-            gob.AddComponent(selectedTile);
+            GameObject gob = new GameObject("Ore", selectedTile);
 
             gob.transform.rotation = Quaternion.identity;
             gob.transform.position = Vector3.zero;
-            
-            gob.transform.position = new Vector3(i, j);
 
-            if (selectedTile == typeof(BlockStone))
-                gob.tag = "TileStone";
+            gob.transform.position = pos;
+
+            gob.GetComponent<BlockOre>().Hardness = hardness;
+            gob.GetComponent<BlockOre>().SetUnlocalizedName(unlocalizedName);
+            gob.GetComponent<BlockOre>().SetOreSprite(spritePath);
         }
     }
 }

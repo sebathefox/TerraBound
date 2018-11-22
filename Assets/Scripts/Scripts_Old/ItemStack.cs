@@ -25,7 +25,7 @@ namespace Assets.Scripts.Common
 
         public void AddAmount(int amount)
         {
-            if()
+            //if()
             this.amount += amount;
         }
     }
