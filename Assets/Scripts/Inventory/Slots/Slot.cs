@@ -13,6 +13,11 @@ namespace Assets.Scripts.Inventory.Slots
     /// </summary>
     public class Slot : MonoBehaviour
     {
+        void Start()
+        {
+            this.Empty = true;
+        }
+
         /// <summary>
         /// The <see cref="UnityEngine.UI.Image"/> to show.
         /// </summary>

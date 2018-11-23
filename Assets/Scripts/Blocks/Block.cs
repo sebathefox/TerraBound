@@ -5,6 +5,7 @@ using Assets.Scripts;
 using Assets.Scripts.Blocks;
 using Assets.Scripts.Blocks.Ores;
 using Assets.Scripts.Common;
+using Assets.Scripts.Inventory;
 using Assets.Scripts.Common.Registry;
 using UnityEngine;
 using UnityEngine.UI;
@@ -32,6 +33,29 @@ public class Block : MonoBehaviour, IObject
     public void DropItemStack()
     {
         //TODO: Find a way to put an ItemStack on the ground for the player to pickup.
+        GameObject stack = new GameObject("droppedItem", typeof(ItemStack));
+        stack.GetComponent<ItemStack>().Item = this;
+        stack.GetComponent<ItemStack>().Amount = 1;
+
+        stack.AddComponent(GetType());
+
+        stack.transform.position = this.transform.position;
+        stack.transform.localScale = new Vector3(0.5f, 0.5f);
+        //stack.AddComponent<SpriteRenderer>();
+        stack.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
+        //stack.GetComponent<ItemStack>()
+        //stack.AddComponent<Rigidbody2D>();
+        //stack.AddComponent<BoxCollider2D>();
+        stack.GetComponent<BoxCollider2D>().isTrigger = true;
+
+        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        //Destroy(this.gameObject);
+    }
+
+    void Update()
+    {
+        if(destroyed)
+            DropItemStack();
     }
 
     void OnMouseOver()
@@ -68,12 +92,19 @@ public class Block : MonoBehaviour, IObject
         gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
             Resources.Load<Sprite>(orePath).texture), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
 
+        //Image.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+
+
         return this;
     }
 
     public float Hardness { get; set; }
 
-    public Image Image { get; set; }
+    public Sprite Image
+    {
+        get { return GetComponent<SpriteRenderer>().sprite; }
+        set { GetComponent<SpriteRenderer>().sprite = value; }
+    }
 
     public int MaxStackSize { get; protected set; }
 

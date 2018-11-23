@@ -23,7 +23,7 @@ namespace Assets.Scripts.Items
             Registry.Instance.ItemRegistry.Add(new KeyValuePair<string, Type>("item_beef", typeof(Item)));
         }
 
-        public Image Image { get; set; }
+        public Sprite Image { get; set; }
 
         public int MaxStackSize { get; protected set; }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
+using Assets.Scripts.Inventory;
 using UnityEngine;
 
 //TODO: Rewrite the player class as multiple components eg. a 'health' component and a 'movement' component
@@ -24,6 +25,14 @@ public class Player : MonoBehaviour, IHealth
     void Update()
     {
 
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.GetComponent<ItemStack>())
+        {
+            GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>(), 1);
+        }
     }
 
     void FixedUpdate()

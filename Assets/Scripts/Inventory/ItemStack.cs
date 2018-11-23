@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assets.Scripts.Items;
+using UnityEngine;
 
 namespace Assets.Scripts.Inventory
 {
     /// <summary>
     /// A holder class for <see cref="Inventory"/> storage.
     /// </summary>
-    public class ItemStack
+    public class ItemStack : MonoBehaviour
     {
         /// <summary>
         /// The <see cref="IObject"/> to store a stack of.

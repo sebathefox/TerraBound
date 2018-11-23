@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Inventory.Slots;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Inventory
 {
@@ -46,7 +47,8 @@ namespace Assets.Scripts.Inventory
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
                     slots[position].GetComponent<Slot>().Stack = stack;
-                    slots[position].GetComponent<Slot>().Image = stack.Item.Image;
+                    slots[position].GetComponent<Slot>().Image.sprite = stack.Item.Image;
+                    slots[position].GetComponent<Slot>().Empty = false;
                 }
                 else
                 {
@@ -82,6 +84,7 @@ namespace Assets.Scripts.Inventory
                 
                 //DEBUG
                 print(slots[i].name);
+                print(slots[i].GetComponent<Slot>().Empty);
             }
         }
     }
