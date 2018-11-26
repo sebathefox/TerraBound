@@ -47,7 +47,7 @@ namespace Assets.Scripts.Inventory
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
                     slots[position].GetComponent<Slot>().Stack = stack;
-                    slots[position].GetComponent<Slot>().Image.sprite = stack.Item.Image;
+                    slots[position].GetComponent<Slot>().Sprite = stack.Item.Image;
                     slots[position].GetComponent<Slot>().Empty = false;
                 }
                 else

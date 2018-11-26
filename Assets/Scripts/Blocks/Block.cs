@@ -32,7 +32,7 @@ public class Block : MonoBehaviour, IObject
 
     public void DropItemStack()
     {
-        //TODO: Find a way to put an ItemStack on the ground for the player to pickup.
+        destroyed = false;
         GameObject stack = new GameObject("droppedItem", typeof(ItemStack));
         stack.GetComponent<ItemStack>().Item = this;
         stack.GetComponent<ItemStack>().Amount = 1;
@@ -92,7 +92,7 @@ public class Block : MonoBehaviour, IObject
         gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
             Resources.Load<Sprite>(orePath).texture), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
 
-        //Image.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+        //Sprite.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
 
 
         return this;

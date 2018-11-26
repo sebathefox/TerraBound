@@ -31,7 +31,9 @@ public class Player : MonoBehaviour, IHealth
     {
         if (collider.gameObject.GetComponent<ItemStack>())
         {
+            print("Heeey");
             GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>(), 1);
+            collider.gameObject.SetActive(false);
         }
     }
 
