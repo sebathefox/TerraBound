@@ -19,10 +19,9 @@ namespace Assets.Scripts.Inventory.Slots
         void Awake()
         {
             child = new GameObject("ItemRenderer", typeof(Image));
-            child.transform.parent = this.gameObject.transform;
-            child.transform.position = gameObject.transform.position;
-            child.transform.localScale = new Vector3(0.5f, 0.5f);
-            child.transform.localRotation = gameObject.transform.localRotation;
+            child.transform.SetParent(gameObject.transform);
+            //child.GetComponent<RectTransform>().rect.Set(0, 0, 32, 32);
+            child.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(32, 32);
             this.Empty = true;
         }
 
@@ -44,7 +43,7 @@ namespace Assets.Scripts.Inventory.Slots
 
         public void Update()
         {
-            if (Empty == false)
+            if (!Empty)
             {
                 GetComponent<Text>().text = Stack.Amount.ToString();
             }

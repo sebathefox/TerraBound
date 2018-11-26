@@ -21,35 +21,32 @@ public class Block : MonoBehaviour, IObject
         gameObject.GetComponent<SpriteRenderer>().sprite = SpriteLoader.GetSprite("Blocks/grass");
         Hardness = 0.5f;
         this.UnlocalizedName = "grass";
+        Image = GetComponent<SpriteRenderer>().sprite;
+        MaxStackSize = 64;
     }
 
     public static void InitBlocks()
     {
-        Registry.Instance.BlockRegistry.Add(new GameObject("" ,typeof(Block)));
-        Registry.Instance.BlockRegistry.Add(new GameObject("", typeof(BlockStone)));
-        Registry.Instance.BlockRegistry.Add(new GameObject("", typeof(BlockOre)));
+        Registry.Instance.BlockRegistry.Add(new GameObject("block_grass" ,typeof(Block)));
+        Registry.Instance.BlockRegistry.Add(new GameObject("block_stone", typeof(BlockStone)));
+        Registry.Instance.BlockRegistry.Add(new GameObject("block_ore", typeof(BlockOre)));
     }
 
     public void DropItemStack()
     {
         destroyed = false;
         GameObject stack = new GameObject("droppedItem", typeof(ItemStack));
-        stack.GetComponent<ItemStack>().Item = this;
+        stack.GetComponent<ItemStack>().Item = gameObject.AddComponent(this);
         stack.GetComponent<ItemStack>().Amount = 1;
 
         stack.AddComponent(GetType());
 
         stack.transform.position = this.transform.position;
         stack.transform.localScale = new Vector3(0.5f, 0.5f);
-        //stack.AddComponent<SpriteRenderer>();
-        stack.GetComponent<SpriteRenderer>().sprite = this.GetComponent<SpriteRenderer>().sprite;
-        //stack.GetComponent<ItemStack>()
-        //stack.AddComponent<Rigidbody2D>();
-        //stack.AddComponent<BoxCollider2D>();
+        stack.GetComponent<SpriteRenderer>().sprite = Image;
         stack.GetComponent<BoxCollider2D>().isTrigger = true;
 
-        this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        //Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 
     void Update()
@@ -60,17 +57,17 @@ public class Block : MonoBehaviour, IObject
 
     void OnMouseOver()
     {
+        if (destroyed) return;
         if (blockBreaked >= Hardness)
         {
             gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             this.destroyed = true;
-            //Destroy(gameObject);
         }
 
         if (Input.GetKey(KeyCode.Mouse0))
         {
             blockBreaked += Time.deltaTime;
-            
+
         }
         else
             this.blockBreaked = 0.0f;
@@ -100,11 +97,7 @@ public class Block : MonoBehaviour, IObject
 
     public float Hardness { get; set; }
 
-    public Sprite Image
-    {
-        get { return GetComponent<SpriteRenderer>().sprite; }
-        set { GetComponent<SpriteRenderer>().sprite = value; }
-    }
+    public Sprite Image { get; set; }
 
     public int MaxStackSize { get; protected set; }
 
