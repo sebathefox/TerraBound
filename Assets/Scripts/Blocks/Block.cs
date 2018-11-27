@@ -23,6 +23,8 @@ public class Block : MonoBehaviour, IObject
         this.UnlocalizedName = "grass";
         Image = GetComponent<SpriteRenderer>().sprite;
         MaxStackSize = 64;
+
+        InvokeRepeating("UpdateOncePerSecond", 0f, 1.0f);
     }
 
     public static void InitBlocks()
@@ -49,7 +51,7 @@ public class Block : MonoBehaviour, IObject
         Destroy(gameObject);
     }
 
-    void Update()
+    void UpdateOncePerSecond()
     {
         if(destroyed)
             DropItemStack();

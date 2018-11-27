@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Inventory.Slots
@@ -11,17 +12,26 @@ namespace Assets.Scripts.Inventory.Slots
     /// <summary>
     /// Defines a simple storage capable of storing a single <see cref="T:Assets.Scripts.Inventory.ItemStack" />
     /// </summary>
-    [RequireComponent(typeof(Text))]
-    public class Slot : MonoBehaviour
+    
+    public class Slot : MonoBehaviour//, IDropHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private GameObject child;
 
         void Awake()
         {
-            child = new GameObject("ItemRenderer", typeof(Image));
+            child = new GameObject("ItemRenderer", typeof(Text));
             child.transform.SetParent(gameObject.transform);
-            //child.GetComponent<RectTransform>().rect.Set(0, 0, 32, 32);
-            child.GetComponent<Image>().rectTransform.sizeDelta = new Vector2(32, 32);
+            child.GetComponent<RectTransform>().position = gameObject.transform.position;
+            child.GetComponent<RectTransform>().sizeDelta = new Vector2(1.9f, 1.9f);
+            child.GetComponent<Text>().font = Resources.Load<Font>("fonts/Adventure ReQuest");
+            child.GetComponent<Text>().fontSize = 1;
+            child.GetComponent<Text>().resizeTextMaxSize = 1;
+            child.GetComponent<Text>().resizeTextForBestFit = true;
+            child.GetComponent<Text>().alignByGeometry = true;
+            child.GetComponent<Text>().alignment = TextAnchor.LowerRight;
+
+
+
             this.Empty = true;
         }
 
@@ -30,8 +40,8 @@ namespace Assets.Scripts.Inventory.Slots
         /// </summary>
         public Sprite Sprite
         {
-            get { return GetComponentInChildren<Image>().sprite;}
-            set { GetComponentInChildren<Image>().sprite = value; }
+            get { return Stack.Sprite;}
+            set { Stack.Sprite = value; }
         }
 
         /// <summary>
@@ -39,14 +49,54 @@ namespace Assets.Scripts.Inventory.Slots
         /// </summary>
         public ItemStack Stack { get; set; }
 
+        /// <summary>
+        /// true if the <see cref="Slot"/> is empty otherwise false
+        /// </summary>
         public bool Empty { get; set; }
 
         public void Update()
         {
             if (!Empty)
             {
-                GetComponent<Text>().text = Stack.Amount.ToString();
+                child.GetComponent<Text>().text = Stack.Amount.ToString();
             }
         }
+
+        //public void OnPointerEnter(PointerEventData eventData)
+        //{
+
+        //    if (eventData.pointerDrag == null)
+        //        return;
+
+        //    ItemStack d = eventData.pointerDrag.GetComponent<ItemStack>();
+        //    if (d != null)
+        //    {
+        //        d.placeHolderParent = this.transform;
+        //    }
+        //}
+
+        //public void OnPointerExit(PointerEventData eventData)
+        //{
+
+        //    if (eventData.pointerDrag == null)
+        //        return;
+
+        //    ItemStack d = eventData.pointerDrag.GetComponent<ItemStack>();
+        //    if (d != null && d.placeHolderParent == this.transform)
+        //    {
+        //        d.placeHolderParent = d.parentToReturnTo;
+        //    }
+        //}
+
+        //public void OnDrop(PointerEventData eventData)
+        //{
+        //    Debug.Log(eventData.pointerDrag.name + " dropped on " + gameObject.name);
+
+        //    ItemStack d = eventData.pointerDrag.GetComponent<ItemStack>();
+        //    if (d != null)
+        //    {
+        //        d.parentToReturnTo = this.transform;
+        //    }
+        //}
     }
 }

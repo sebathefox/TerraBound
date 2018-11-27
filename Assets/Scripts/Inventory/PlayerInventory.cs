@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Inventory.Slots;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Inventory
@@ -11,6 +12,9 @@ namespace Assets.Scripts.Inventory
     /// <inheritdoc cref="IInventory"/>
     class PlayerInventory : MonoBehaviour, IInventory
     {
+        
+
+
         public GameObject inventory;
         public GameObject slotHolder;
 
@@ -43,6 +47,10 @@ namespace Assets.Scripts.Inventory
         {
             try
             {
+                stack.transform.SetParent(slots[position]);
+                stack.transform.localScale = new Vector3(1, 1);
+                
+
                 print("Trying to add " + stack.Item.UnlocalizedName + " to inventory");
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
