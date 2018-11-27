@@ -62,11 +62,10 @@
     <Compile Include="Assets\Scripts\Blocks\Block.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockStone.cs" />
     <Compile Include="Assets\Scripts\Blocks\Ores\BlockOre.cs" />
-    <Compile Include="Assets\Scripts\Common\BarViewer.cs" />
     <Compile Include="Assets\Scripts\Common\ComponentHelper.cs" />
-    <Compile Include="Assets\Scripts\Common\IDefence.cs" />
     <Compile Include="Assets\Scripts\Common\IHealth.cs" />
     <Compile Include="Assets\Scripts\Common\ImageHelper.cs" />
+    <Compile Include="Assets\Scripts\Common\IPlaceable.cs" />
     <Compile Include="Assets\Scripts\Common\Registry\Registry.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteLoader.cs" />
     <Compile Include="Assets\Scripts\Common\TileData.cs" />
@@ -79,23 +78,20 @@
     <Compile Include="Assets\Scripts\IObject.cs" />
     <Compile Include="Assets\Scripts\Items\Item.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Old\IInventory.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Old\Inventory.cs" />
-    <Compile Include="Assets\Scripts\Scripts_Old\ItemStack.cs" />
     <Compile Include="Assets\Scripts\World\GenerateChunk.cs" />
     <Compile Include="Assets\Scripts\World\GenerateChunks.cs" />
     <Compile Include="Assets\Scripts\World\OreSpawn.cs" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>C:/Users/Bruger/Documents/TerraBound/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/sebastian/Documents/TerraBound/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/Bruger/Documents/TerraBound/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/sebastian/Documents/TerraBound/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/Bruger/Documents/TerraBound/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/sebastian/Documents/TerraBound/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/Bruger/Documents/TerraBound/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/sebastian/Documents/TerraBound/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -296,10 +292,10 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/Bruger/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/sebastian/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/Bruger/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/sebastian/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.2.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

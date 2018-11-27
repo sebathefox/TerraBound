@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,12 +14,32 @@ namespace Assets.Scripts.Inventory
     /// A holder class for <see cref="Inventory"/> storage.
     /// </summary>
     [RequireComponent(typeof(Image))]
-    public class ItemStack : MonoBehaviour //, IBeginDragHandler, IDragHandler, IEndDragHandler
+    public class ItemStack : MonoBehaviour
     {
-        public Transform parentToReturnTo = null;
-        public Transform placeHolderParent = null;
 
-        private GameObject placeHolder = null;
+        private GameObject child;
+
+        void Awake()
+        {
+            child = new GameObject("ItemAmountRenderer", typeof(Text));
+            child.transform.SetParent(gameObject.transform);
+            child.GetComponent<RectTransform>().position = gameObject.transform.position;
+            child.GetComponent<RectTransform>().sizeDelta = new Vector2(32, 32);
+            child.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+            child.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
+            child.GetComponent<Text>().font = Resources.Load<Font>("fonts/Adventure ReQuest");
+            child.GetComponent<Text>().fontSize = 1;
+            child.GetComponent<Text>().resizeTextMaxSize = 1;
+            child.GetComponent<Text>().resizeTextForBestFit = true;
+            child.GetComponent<Text>().alignByGeometry = true;
+            child.GetComponent<Text>().alignment = TextAnchor.LowerRight;
+            child.GetComponent<Text>().text = Amount.ToString();
+        }
+
+        void Update()
+        {
+            
+        }
 
         /// <summary>
         /// The <see cref="IObject"/> to store a stack of.
@@ -40,6 +61,7 @@ namespace Assets.Scripts.Inventory
                 return Item.MaxStackSize - (Amount + amount);
             }
 
+            child.GetComponent<Text>().text = Amount.ToString();
             return 0;
         }
 
@@ -48,55 +70,5 @@ namespace Assets.Scripts.Inventory
             get { return GetComponent<Image>().sprite; }
             set { GetComponent<Image>().sprite = value; }
         }
-
-        //public void OnBeginDrag(PointerEventData eventData)
-        //{
-        //    print("BEGIN DRAG");
-        //    placeHolder = new GameObject();
-        //    placeHolder.transform.SetParent(transform.parent);
-        //    LayoutElement le = placeHolder.AddComponent<LayoutElement>();
-        //    le.preferredWidth = this.GetComponent<LayoutElement>().preferredWidth;
-        //    le.preferredHeight = this.GetComponent<LayoutElement>().preferredHeight;
-        //    le.flexibleWidth = 0;
-        //    le.flexibleHeight = 0;
-
-        //    placeHolder.transform.SetSiblingIndex(transform.GetSiblingIndex());
-
-        //    parentToReturnTo = this.transform.parent;
-        //    placeHolderParent = parentToReturnTo;
-        //    transform.SetParent(transform.parent.parent);
-
-        //    GetComponent<CanvasGroup>().blocksRaycasts = false;
-        //}
-
-        //public void OnDrag(PointerEventData eventData)
-        //{
-        //    this.transform.position = eventData.position;
-        //    if(placeHolder.transform.parent != placeHolderParent)
-        //        placeHolder.transform.SetParent(placeHolderParent);
-
-        //    int newSiblingIndex = placeHolderParent.childCount;
-
-        //    for (int i = 0; i < placeHolderParent.childCount; i++)
-        //    {
-        //        if (transform.position.x < placeHolderParent.GetChild(i).position.x)
-        //        {
-        //            newSiblingIndex = i;
-        //            if (placeHolder.transform.GetSiblingIndex() < newSiblingIndex)
-        //                newSiblingIndex--;
-        //            break;
-        //        }
-        //    }
-
-        //    placeHolder.transform.SetSiblingIndex(newSiblingIndex);
-        //}
-
-        //public void OnEndDrag(PointerEventData eventData)
-        //{
-        //    transform.SetParent(parentToReturnTo);
-        //    transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
-        //    GetComponent<CanvasGroup>().blocksRaycasts = true;
-        //    Destroy(placeHolder);
-        //}
     }
 }

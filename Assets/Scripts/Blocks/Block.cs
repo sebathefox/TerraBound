@@ -36,7 +36,7 @@ public class Block : MonoBehaviour, IObject
 
     public void DropItemStack()
     {
-        destroyed = false;
+        destroyed = false; // Stops the object from dropping more than one of itself
         GameObject stack = new GameObject("droppedItem", typeof(ItemStack));
         stack.GetComponent<ItemStack>().Item = gameObject.AddComponent(this);
         stack.GetComponent<ItemStack>().Amount = 1;
@@ -44,6 +44,9 @@ public class Block : MonoBehaviour, IObject
         stack.AddComponent(GetType());
 
         stack.transform.position = this.transform.position;
+        stack.GetComponent<RectTransform>().sizeDelta = new Vector2(32, 32);
+        stack.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
+        stack.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
         stack.transform.localScale = new Vector3(0.5f, 0.5f);
         stack.GetComponent<SpriteRenderer>().sprite = Image;
         stack.GetComponent<BoxCollider2D>().isTrigger = true;
@@ -90,18 +93,21 @@ public class Block : MonoBehaviour, IObject
     {
         gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
             Resources.Load<Sprite>(orePath).texture), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
-
-        //Sprite.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
-
-
         return this;
     }
 
     public float Hardness { get; set; }
 
-    public Sprite Image { get; set; }
+    public Sprite Image
+    {
+        get;
+        set;
+    }
 
     public int MaxStackSize { get; protected set; }
 
+    /// <summary>
+    /// The <see cref="Registry"/>'s index of the block
+    /// </summary>
     public string UnlocalizedName { get; protected set; }
 }
