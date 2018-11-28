@@ -19,7 +19,7 @@ namespace Assets.Scripts.Inventory
         public GameObject slotHolder;
 
         // The number of slots
-        private int numSlots;
+        public int numSlots;
 
         // The slots
         private Transform[] slots;
@@ -51,29 +51,33 @@ namespace Assets.Scripts.Inventory
         {
             try
             {
-                stack.transform.SetParent(slots[position]);
-                stack.transform.localScale = new Vector3(1, 1);
-                
 
-                print("Trying to add " + stack.Item.UnlocalizedName + " to inventory");
+
+
+                //print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, STATUS: " + slots[position].GetComponent<Slot>().Empty);
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
+                    stack.transform.SetParent(slots[position]);
+                    stack.transform.localScale = new Vector3(1, 1);
+                    stack.transform.position = slots[position].position;
                     slots[position].GetComponent<Slot>().Stack = stack;
-                    slots[position].GetComponent<Slot>().Stack.Sprite = stack.Item.Image;
+
                     slots[position].GetComponent<Slot>().Empty = false;
                 }
                 else
                 {
-                    Type typeLocal = slots[position].GetComponent<Slot>().Stack.GetType();
-                    Type typeRemote = stack.GetType();
+                    Type typeLocal = slots[position].GetComponent<Slot>().Stack.Item.GetType();
+                    Type typeRemote = stack.Item.GetType();
                     if (typeLocal == typeRemote)
                     {
-                        int rest = slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
+                        slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
+                        print("PlayerInventory");
+                        Destroy(stack.gameObject);
 
-                        if (rest != 0)
-                        {
-                            //TODO: Send the stack to the user's cursor.
-                        }
+                        //if (rest != 0)
+                        //{
+                        //    //TODO: Send the stack to the user's cursor.
+                        //}
                     }
                 }
             }

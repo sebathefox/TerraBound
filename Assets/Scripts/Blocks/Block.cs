@@ -48,8 +48,8 @@ public class Block : MonoBehaviour, IObject
         stack.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
         stack.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
         stack.transform.localScale = new Vector3(0.5f, 0.5f);
-        stack.GetComponent<SpriteRenderer>().sprite = Image;
-        stack.GetComponent<BoxCollider2D>().isTrigger = true;
+        stack.GetComponent<ItemStack>().Sprite = GetComponent<SpriteRenderer>().sprite;
+        //stack.GetComponent<BoxCollider2D>().isTrigger = true;
 
         Destroy(gameObject);
     }

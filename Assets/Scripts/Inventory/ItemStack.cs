@@ -21,15 +21,18 @@ namespace Assets.Scripts.Inventory
 
         void Awake()
         {
+            Amount = 0;
+
             child = new GameObject("ItemAmountRenderer", typeof(Text));
             child.transform.SetParent(gameObject.transform);
             child.GetComponent<RectTransform>().position = gameObject.transform.position;
             child.GetComponent<RectTransform>().sizeDelta = new Vector2(32, 32);
+            child.transform.localScale = new Vector3(1, 1);
             child.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
             child.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
             child.GetComponent<Text>().font = Resources.Load<Font>("fonts/Adventure ReQuest");
-            child.GetComponent<Text>().fontSize = 1;
-            child.GetComponent<Text>().resizeTextMaxSize = 1;
+            child.GetComponent<Text>().fontSize = 15;
+            child.GetComponent<Text>().resizeTextMaxSize = 15;
             child.GetComponent<Text>().resizeTextForBestFit = true;
             child.GetComponent<Text>().alignByGeometry = true;
             child.GetComponent<Text>().alignment = TextAnchor.LowerRight;
@@ -69,6 +72,14 @@ namespace Assets.Scripts.Inventory
         {
             get { return GetComponent<Image>().sprite; }
             set { GetComponent<Image>().sprite = value; }
+        }
+
+        public void Add(ItemStack other)
+        {
+            this.Amount += other.Amount;
+            //Destroy(other.child);
+            Destroy(other.gameObject);
+            //return this;
         }
     }
 }

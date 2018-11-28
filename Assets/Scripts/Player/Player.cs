@@ -27,12 +27,16 @@ public class Player : MonoBehaviour, IHealth
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    private void OnCollisionEnter2D(Collision2D collider)
     {
+        // If the object is able to be picked up
         if (collider.gameObject.GetComponent<ItemStack>())
         {
-            GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>(), 1);
-            //collider.gameObject.SetActive(false);
+            print("COLLIDED");
+            //for (int i = 0; i < GetComponent<PlayerInventory>().numSlots; i++)
+            //{
+                GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>(), 1);
+            //}
         }
     }
 
