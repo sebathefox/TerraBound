@@ -17,7 +17,7 @@ namespace Assets.Scripts.Inventory
         /// </summary>
         /// <param name="stack">The <see cref="ItemStack"/> to add</param>
         /// <param name="position">The inventory's position to occupy</param>
-        void AddStack(ItemStack stack, int position);
+        bool AddStack(ItemStack stack, int position);
 
         /// <summary>
         /// Adds a <see cref="ItemStack"/> to another <see cref="ItemStack"/> of the same type.

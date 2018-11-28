@@ -29,7 +29,6 @@ namespace Assets.Scripts.World
 
         void Start()
         {
-            Block.InitBlocks(); // Initializes all of the blocks
             Generate();
         }
 
@@ -109,7 +108,7 @@ namespace Assets.Scripts.World
         /// <param name="hardness">How hard it is to destroy the <see cref="GameObject"/>.</param>
         private void AddOre(Type selectedTile, Vector3 pos,string unlocalizedName, string spritePath, float hardness = 1.0f)
         {
-            GameObject gob = new GameObject("Ore", selectedTile); // Creates a new GameObject
+            GameObject gob = new GameObject(unlocalizedName, selectedTile); // Creates a new GameObject
 
             gob.transform.rotation = Quaternion.identity; // Sets no rotation
 

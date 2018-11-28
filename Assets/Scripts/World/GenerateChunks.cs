@@ -16,6 +16,7 @@ namespace Assets.Scripts.World
 
         void Start()
         {
+            Block.InitBlocks(); // Initializes all of the blocks
             chunkWidth = chunk.GetComponent<GenerateChunk>().width;
             seed = Random.Range(-100000, 100000);
             Generate();

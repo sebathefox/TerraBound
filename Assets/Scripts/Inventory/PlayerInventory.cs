@@ -47,13 +47,10 @@ namespace Assets.Scripts.Inventory
                 inventory.SetActive(false);
         }
 
-        public void AddStack(ItemStack stack, int position)
+        public bool AddStack(ItemStack stack, int position)
         {
             try
             {
-
-
-
                 //print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, STATUS: " + slots[position].GetComponent<Slot>().Empty);
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
@@ -63,9 +60,11 @@ namespace Assets.Scripts.Inventory
                     slots[position].GetComponent<Slot>().Stack = stack;
 
                     slots[position].GetComponent<Slot>().Empty = false;
+                    return true;
                 }
                 else
                 {
+                    print(slots[position].GetComponent<Slot>().Stack.Item);
                     Type typeLocal = slots[position].GetComponent<Slot>().Stack.Item.GetType();
                     Type typeRemote = stack.Item.GetType();
                     if (typeLocal == typeRemote)
@@ -78,12 +77,28 @@ namespace Assets.Scripts.Inventory
                         //{
                         //    //TODO: Send the stack to the user's cursor.
                         //}
+                        return true;
+                    }
+                    else
+                    {
+                        print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.GetType());
+                        return false;
                     }
                 }
             }
             catch (IndexOutOfRangeException e)
             {
                 print(e.Message);
+                return false;
+            }
+        }
+
+        public void AddStack(ItemStack stack)
+        {
+            for (int i = 0; i < numSlots; i++)
+            {
+                if(AddStack(stack, i))
+                    return;
             }
         }
 
@@ -107,6 +122,11 @@ namespace Assets.Scripts.Inventory
             {
                 slots[i] = slotHolder.transform.GetChild(i);
             }
+        }
+
+        public bool IsSlotEmpty(int position)
+        {
+            return slots[position].GetComponent<Slot>().Empty;
         }
     }
 }

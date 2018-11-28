@@ -13,6 +13,8 @@ namespace Assets.Scripts.Blocks
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Blocks/stone");
             this.Hardness = 1.0f;
             this.UnlocalizedName = "stone";
+            this.MaxStackSize = 64;
+            Image = GetComponent<SpriteRenderer>().sprite;
 
             InvokeRepeating("UpdateOncePerSecond", 0f, 1.0f);
         }

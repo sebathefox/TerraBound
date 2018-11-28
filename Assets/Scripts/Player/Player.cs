@@ -1,19 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Common;
+using Assets.Scripts.Common.Registry;
 using Assets.Scripts.Inventory;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 //TODO: Rewrite the player class as multiple components eg. a 'health' component and a 'movement' component
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Player : MonoBehaviour, IHealth
+public class Player : MonoBehaviour
 {
+    // THe speed of the player character
     private float speed = 10.0f;
-    
-    protected int maxHealth = 100;
-
-    protected int defence = 0;
 
     // Use this for initialization
     void Start()
@@ -21,24 +20,16 @@ public class Player : MonoBehaviour, IHealth
         gameObject.GetComponent<SpriteRenderer>().sortingOrder = 10;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     private void OnCollisionEnter2D(Collision2D collider)
     {
         // If the object is able to be picked up
         if (collider.gameObject.GetComponent<ItemStack>())
         {
-            print("COLLIDED");
-            //for (int i = 0; i < GetComponent<PlayerInventory>().numSlots; i++)
-            //{
-                GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>(), 1);
-            //}
+            GetComponent<PlayerInventory>().AddStack(collider.gameObject.GetComponent<ItemStack>());
         }
     }
+
+
 
     void FixedUpdate()
     {
@@ -53,34 +44,17 @@ public class Player : MonoBehaviour, IHealth
         js *= Time.fixedDeltaTime;
 
         transform.Translate(translation, js, 0);
-    }
 
-    public int Health { get; private set; }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    public int GetMaxHp()
-    {
-        return maxHealth;
-    }
+            ray.z = 0;
 
-    public void TakeDamage(double damage)
-    {
-        System.Random rnd = new System.Random();
+            Vector3 gridPosition = new Vector3(Mathf.Round(ray.x),
+                                                Mathf.Round(ray.y));
 
-        this.Health = (int)((damage - (double)defence) * rnd.NextDouble());
-    }
-
-    public void AddHp(int hp)
-    {
-        this.Health += hp;
-    }
-
-    public void SetHp(int hp)
-    {
-        this.Health = hp;
-    }
-
-    public void SubtractHp(int hp)
-    {
-        this.Health -= hp;
+            Instantiate(Registry.Instance.BlockRegistry[0], gridPosition, Quaternion.identity);
+        }
     }
 }

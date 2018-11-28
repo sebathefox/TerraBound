@@ -36,9 +36,11 @@ public class Block : MonoBehaviour, IObject
 
     public void DropItemStack()
     {
+        print(gameObject.GetComponent(GetType()).GetType());
+
         destroyed = false; // Stops the object from dropping more than one of itself
         GameObject stack = new GameObject("droppedItem", typeof(ItemStack));
-        stack.GetComponent<ItemStack>().Item = gameObject.AddComponent(this);
+        stack.GetComponent<ItemStack>().Item = (IObject)gameObject.GetComponent(GetType());
         stack.GetComponent<ItemStack>().Amount = 1;
 
         stack.AddComponent(GetType());
@@ -89,21 +91,35 @@ public class Block : MonoBehaviour, IObject
         return this;
     }
 
+    /// <summary>
+    /// Sets the ore's sprite
+    /// </summary>
+    /// <param name="orePath">the path to the ore's sprite</param>
+    /// <returns>Returns itself (Used for linking methods together)</returns>
     public Block SetOreSprite(string orePath)
     {
-        gameObject.GetComponent<SpriteRenderer>().sprite = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
+        gameObject.GetComponent<SpriteRenderer>().sprite = Image = Sprite.Create(ImageHelper.AlphaBlend(Resources.Load<Sprite>("Sprites/Blocks/stone").texture,
             Resources.Load<Sprite>(orePath).texture), new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32);
         return this;
     }
 
+    /// <summary>
+    /// The time it takes to mine the block
+    /// </summary>
     public float Hardness { get; set; }
 
+    /// <summary>
+    /// The image of the object
+    /// </summary>
     public Sprite Image
     {
         get;
         set;
     }
 
+    /// <summary>
+    /// The max number of blocks in a single stack
+    /// </summary>
     public int MaxStackSize { get; protected set; }
 
     /// <summary>
