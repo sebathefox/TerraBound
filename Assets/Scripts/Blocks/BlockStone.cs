@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Common.Static;
 using UnityEngine;
 
 namespace Assets.Scripts.Blocks
@@ -13,7 +14,7 @@ namespace Assets.Scripts.Blocks
             gameObject.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/Blocks/stone");
             this.Hardness = 1.0f;
             this.UnlocalizedName = "stone";
-            this.MaxStackSize = 64;
+            this.MaxStackSize = StaticData.DefaultStackMaxSize;
             Image = GetComponent<SpriteRenderer>().sprite;
 
             InvokeRepeating("UpdateOncePerSecond", 0f, 1.0f);

@@ -17,10 +17,5 @@ namespace Assets.Scripts.Common
         {
             return Resources.Load<Sprite>("Sprites/" + path);
         }
-
-        public static Image GetImage(string path)
-        {
-            return Resources.Load<Image>("Sprites/" + path);
-        }
     }
 }

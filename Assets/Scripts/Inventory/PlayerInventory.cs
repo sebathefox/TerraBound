@@ -51,9 +51,10 @@ namespace Assets.Scripts.Inventory
         {
             try
             {
-                //print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, STATUS: " + slots[position].GetComponent<Slot>().Empty);
+                print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, at position " + position);
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
+                    print("FIRST");
                     stack.transform.SetParent(slots[position]);
                     stack.transform.localScale = new Vector3(1, 1);
                     stack.transform.position = slots[position].position;
@@ -69,24 +70,36 @@ namespace Assets.Scripts.Inventory
                     Type typeRemote = stack.Item.GetType();
                     if (typeLocal == typeRemote)
                     {
-                        slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
+                        int rest = slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
                         print("PlayerInventory");
-                        Destroy(stack.gameObject);
 
-                        //if (rest != 0)
-                        //{
-                        //    //TODO: Send the stack to the user's cursor.
-                        //}
+                        if ((rest + slots[position].GetComponent<Slot>().Stack.Amount) > slots[position].GetComponent<Slot>().Stack.Item.MaxStackSize)
+                            return false;
+
+                        if (rest > 0)
+                        {
+                            
+                            print(rest);
+                            stack.Amount = rest;
+                            AddStack(stack, (++position));
+                            return true;
+                        }
+
+                        Destroy(stack.gameObject);
                         return true;
                     }
                     else
                     {
+                        //++position;
                         print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.GetType());
+
+                        //AddStack(stack, position);
+
                         return false;
                     }
                 }
             }
-            catch (IndexOutOfRangeException e)
+            catch (Exception e)
             {
                 print(e.Message);
                 return false;
@@ -95,6 +108,7 @@ namespace Assets.Scripts.Inventory
 
         public void AddStack(ItemStack stack)
         {
+            print("SLOTS: " + numSlots);
             for (int i = 0; i < numSlots; i++)
             {
                 if(AddStack(stack, i))

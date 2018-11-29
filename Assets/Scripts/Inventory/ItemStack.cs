@@ -39,11 +39,6 @@ namespace Assets.Scripts.Inventory
             child.GetComponent<Text>().text = Amount.ToString();
         }
 
-        void Update()
-        {
-            
-        }
-
         /// <summary>
         /// The <see cref="IObject"/> to store a stack of.
         /// </summary>
@@ -60,8 +55,9 @@ namespace Assets.Scripts.Inventory
                 this.Amount += amount;
             else if (Item.MaxStackSize < Amount + amount)
             {
+                print("YELLO");
                 this.Amount = Item.MaxStackSize;
-                return Item.MaxStackSize - (Amount + amount);
+                return (Amount + amount) - Item.MaxStackSize;
             }
 
             child.GetComponent<Text>().text = Amount.ToString();
@@ -72,14 +68,6 @@ namespace Assets.Scripts.Inventory
         {
             get { return GetComponent<Image>().sprite; }
             set { GetComponent<Image>().sprite = value; }
-        }
-
-        public void Add(ItemStack other)
-        {
-            this.Amount += other.Amount;
-            //Destroy(other.child);
-            Destroy(other.gameObject);
-            //return this;
         }
     }
 }

@@ -54,7 +54,10 @@ public class Player : MonoBehaviour
             Vector3 gridPosition = new Vector3(Mathf.Round(ray.x),
                                                 Mathf.Round(ray.y));
 
-            Instantiate(Registry.Instance.BlockRegistry[0], gridPosition, Quaternion.identity);
+            Vector2 rp = new Vector2(gridPosition.x, gridPosition.y);
+
+            if(!Physics2D.Raycast(rp, Vector2.zero, 0.1f))
+                Instantiate(Registry.Instance.BlockRegistry[0], gridPosition, Quaternion.identity);
         }
     }
 }

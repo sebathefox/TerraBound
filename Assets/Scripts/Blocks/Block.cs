@@ -7,6 +7,7 @@ using Assets.Scripts.Blocks.Ores;
 using Assets.Scripts.Common;
 using Assets.Scripts.Inventory;
 using Assets.Scripts.Common.Registry;
+using Assets.Scripts.Common.Static;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +23,7 @@ public class Block : MonoBehaviour, IObject
         Hardness = 0.5f;
         this.UnlocalizedName = "grass";
         Image = GetComponent<SpriteRenderer>().sprite;
-        MaxStackSize = 64;
+        MaxStackSize = StaticData.DefaultStackMaxSize;
 
         InvokeRepeating("UpdateOncePerSecond", 0f, 1.0f);
     }

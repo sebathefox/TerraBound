@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
-namespace Assets.Scripts.Common
+namespace Assets.Scripts.Common.Mechanics
 {
-    public interface IPlaceable
+    public class Draggable : MonoBehaviour
     {
-        bool Place();
     }
 }
