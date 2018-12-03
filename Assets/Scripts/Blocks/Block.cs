@@ -47,7 +47,7 @@ public class Block : MonoBehaviour, IObject
         stack.AddComponent(GetType());
 
         stack.transform.position = this.transform.position;
-        stack.GetComponent<RectTransform>().sizeDelta = new Vector2(32, 32);
+        //stack.GetComponent<RectTransform>().sizeDelta = new Vector2(6, 6);
         stack.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
         stack.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
         stack.transform.localScale = new Vector3(0.5f, 0.5f);
@@ -68,7 +68,7 @@ public class Block : MonoBehaviour, IObject
         if (destroyed) return;
         if (blockBreaked >= Hardness)
         {
-            gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            //gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             this.destroyed = true;
         }
 

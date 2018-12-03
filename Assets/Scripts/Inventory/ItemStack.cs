@@ -21,7 +21,7 @@ namespace Assets.Scripts.Inventory
 
         void Awake()
         {
-            Amount = 0;
+            Amount = 1;
 
             child = new GameObject("ItemAmountRenderer", typeof(Text));
             child.transform.SetParent(gameObject.transform);
@@ -62,6 +62,14 @@ namespace Assets.Scripts.Inventory
 
             child.GetComponent<Text>().text = Amount.ToString();
             return 0;
+        }
+
+        public int RemoveAmount(int amount)
+        {
+            Amount -= amount;
+
+            child.GetComponent<Text>().text = Amount.ToString();
+            return Amount;
         }
 
         public Sprite Sprite

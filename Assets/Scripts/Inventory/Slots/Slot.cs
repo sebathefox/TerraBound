@@ -30,5 +30,17 @@ namespace Assets.Scripts.Inventory.Slots
         /// true if the <see cref="Slot"/> is empty otherwise false
         /// </summary>
         public bool Empty { get; set; }
+
+        public void SetComponentOnSisterObject(int index)
+        {
+            //GameObject selected = new GameObject("Selected", typeof(SelectedOnHud));
+
+            //selected.transform.SetParent(gameObject.transform.parent.GetChild(index).gameObject.transform);
+
+            transform.parent.GetChild(index).gameObject.AddComponent<SelectedOnHud>();
+            Destroy(gameObject.GetComponent<SelectedOnHud>());
+            Destroy(gameObject.GetComponent<SpriteRenderer>());
+            
+        }
     }
 }

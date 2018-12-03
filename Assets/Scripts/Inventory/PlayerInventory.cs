@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using Assets.Scripts.Inventory.Slots;
+using Assets.Scripts.Items.Tools;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -51,12 +52,13 @@ namespace Assets.Scripts.Inventory
         {
             try
             {
+                stack.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
                 print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, at position " + position);
                 if (slots[position].GetComponent<Slot>().Empty)
                 {
-                    print("FIRST");
                     stack.transform.SetParent(slots[position]);
-                    stack.transform.localScale = new Vector3(1, 1);
+                    stack.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f);
                     stack.transform.position = slots[position].position;
                     slots[position].GetComponent<Slot>().Stack = stack;
 
@@ -65,10 +67,10 @@ namespace Assets.Scripts.Inventory
                 }
                 else
                 {
-                    print(slots[position].GetComponent<Slot>().Stack.Item);
-                    Type typeLocal = slots[position].GetComponent<Slot>().Stack.Item.GetType();
-                    Type typeRemote = stack.Item.GetType();
-                    if (typeLocal == typeRemote)
+                    string blockUnlocalizedName = slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName;
+                    
+                    string unlocalizedNameOfRemote = stack.Item.UnlocalizedName;
+                    if (blockUnlocalizedName == unlocalizedNameOfRemote)
                     {
                         int rest = slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
                         print("PlayerInventory");
@@ -91,7 +93,7 @@ namespace Assets.Scripts.Inventory
                     else
                     {
                         //++position;
-                        print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.GetType());
+                        print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName);
 
                         //AddStack(stack, position);
 
@@ -135,7 +137,20 @@ namespace Assets.Scripts.Inventory
             for (int i = 0; i < numSlots; i++)
             {
                 slots[i] = slotHolder.transform.GetChild(i);
+                
             }
+
+            slots[0].gameObject.AddComponent<SelectedOnHud>();
+
+            slots[1].GetComponent<Slot>().Empty = false;
+            GameObject gob = new GameObject("", typeof(ItemStack));
+            gob.GetComponent<ItemStack>().Item = new Pickaxe();
+            gob.transform.SetParent(slots[1].transform);
+            gob.GetComponent<ItemStack>().Sprite = gob.GetComponent<ItemStack>().Item.Image;
+            gob.transform.localScale = new Vector3(1, 1);
+            gob.transform.localPosition = new Vector3(0, 0);
+
+            slots[1].GetComponent<Slot>().Stack = gob.GetComponent<ItemStack>();
         }
 
         public bool IsSlotEmpty(int position)
