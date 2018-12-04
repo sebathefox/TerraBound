@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Common.Mechanics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -12,7 +13,6 @@ namespace Assets.Scripts.Inventory.Slots
     /// <summary>
     /// Defines a simple storage capable of storing a single <see cref="T:Assets.Scripts.Inventory.ItemStack" />
     /// </summary>
-    
     public class Slot : MonoBehaviour
     {
 
@@ -41,6 +41,11 @@ namespace Assets.Scripts.Inventory.Slots
             Destroy(gameObject.GetComponent<SelectedOnHud>());
             Destroy(gameObject.GetComponent<SpriteRenderer>());
             
+        }
+
+        public void SetItemStack()
+        {
+
         }
     }
 }

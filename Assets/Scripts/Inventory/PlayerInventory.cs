@@ -39,7 +39,6 @@ namespace Assets.Scripts.Inventory
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
-
                 invEnabled = !invEnabled;
             }
             if (invEnabled)
@@ -52,7 +51,10 @@ namespace Assets.Scripts.Inventory
         {
             try
             {
-                stack.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                // Disables the collider for the gameObject if it has any
+                if(stack.gameObject.GetComponent<BoxCollider2D>())
+                    stack.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+
 
                 print("Trying to add " + stack.Item.UnlocalizedName + " to inventory, at position " + position);
                 if (slots[position].GetComponent<Slot>().Empty)
@@ -60,46 +62,44 @@ namespace Assets.Scripts.Inventory
                     stack.transform.SetParent(slots[position]);
                     stack.GetComponent<RectTransform>().localScale = new Vector3(0.5f, 0.5f);
                     stack.transform.position = slots[position].position;
+
+                    // Copies the stack to the slot component
                     slots[position].GetComponent<Slot>().Stack = stack;
 
+                    // Sets the slot to actually having a object
                     slots[position].GetComponent<Slot>().Empty = false;
                     return true;
                 }
-                else
-                {
-                    string blockUnlocalizedName = slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName;
+
+                string blockUnlocalizedName = slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName;
                     
-                    string unlocalizedNameOfRemote = stack.Item.UnlocalizedName;
-                    if (blockUnlocalizedName == unlocalizedNameOfRemote)
+                string unlocalizedNameOfRemote = stack.Item.UnlocalizedName;
+                if (blockUnlocalizedName == unlocalizedNameOfRemote)
+                {
+                    int rest = slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
+                    print("PlayerInventory");
+
+                    if ((rest + slots[position].GetComponent<Slot>().Stack.Amount) > slots[position].GetComponent<Slot>().Stack.Item.MaxStackSize)
+                        return false;
+
+                    if (rest > 0)
                     {
-                        int rest = slots[position].GetComponent<Slot>().Stack.AddAmount(stack.Amount);
-                        print("PlayerInventory");
-
-                        if ((rest + slots[position].GetComponent<Slot>().Stack.Amount) > slots[position].GetComponent<Slot>().Stack.Item.MaxStackSize)
-                            return false;
-
-                        if (rest > 0)
-                        {
                             
-                            print(rest);
-                            stack.Amount = rest;
-                            AddStack(stack, (++position));
-                            return true;
-                        }
-
-                        Destroy(stack.gameObject);
+                        stack.Amount = rest;
+                        AddStack(stack, (++position));
                         return true;
                     }
-                    else
-                    {
-                        //++position;
-                        print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName);
 
-                        //AddStack(stack, position);
-
-                        return false;
-                    }
+                    Destroy(stack.gameObject);
+                    return true;
                 }
+
+                //++position;
+                print("Slot already occupied by: " + slots[position].GetComponent<Slot>().Stack.Item.UnlocalizedName);
+
+                //AddStack(stack, position);
+
+                return false;
             }
             catch (Exception e)
             {
@@ -142,15 +142,15 @@ namespace Assets.Scripts.Inventory
 
             slots[0].gameObject.AddComponent<SelectedOnHud>();
 
-            slots[1].GetComponent<Slot>().Empty = false;
-            GameObject gob = new GameObject("", typeof(ItemStack));
-            gob.GetComponent<ItemStack>().Item = new Pickaxe();
-            gob.transform.SetParent(slots[1].transform);
-            gob.GetComponent<ItemStack>().Sprite = gob.GetComponent<ItemStack>().Item.Image;
-            gob.transform.localScale = new Vector3(1, 1);
-            gob.transform.localPosition = new Vector3(0, 0);
+            //slots[1].GetComponent<Slot>().Empty = false;
+            //GameObject gob = new GameObject("", typeof(ItemStack));
+            //gob.GetComponent<ItemStack>().Item = new Pickaxe();
+            //gob.transform.SetParent(slots[1].transform);
+            //gob.GetComponent<ItemStack>().Sprite = gob.GetComponent<ItemStack>().Item.Image;
+            //gob.transform.localScale = new Vector3(1, 1);
+            //gob.transform.localPosition = new Vector3(0, 0);
 
-            slots[1].GetComponent<Slot>().Stack = gob.GetComponent<ItemStack>();
+            //slots[1].GetComponent<Slot>().Stack = gob.GetComponent<ItemStack>();
         }
 
         public bool IsSlotEmpty(int position)

@@ -60,13 +60,16 @@
     <Compile Include="Assets\CielaSpike\Thread Ninja\TaskState.cs" />
     <Compile Include="Assets\CielaSpike\Thread Ninja\ThreadNinjaMonoBehaviourExtensions.cs" />
     <Compile Include="Assets\Scripts\Blocks\Block.cs" />
+    <Compile Include="Assets\Scripts\Blocks\BlockFurnace.cs" />
     <Compile Include="Assets\Scripts\Blocks\BlockStone.cs" />
     <Compile Include="Assets\Scripts\Blocks\Ores\BlockOre.cs" />
     <Compile Include="Assets\Scripts\Client\HotbarSelected.cs" />
     <Compile Include="Assets\Scripts\Common\ComponentHelper.cs" />
     <Compile Include="Assets\Scripts\Common\IHealth.cs" />
     <Compile Include="Assets\Scripts\Common\ImageHelper.cs" />
+    <Compile Include="Assets\Scripts\Common\Mechanics\Crafting\CraftingManager.cs" />
     <Compile Include="Assets\Scripts\Common\Mechanics\Draggable.cs" />
+    <Compile Include="Assets\Scripts\Common\Mechanics\DropZone.cs" />
     <Compile Include="Assets\Scripts\Common\Registry\Registry.cs" />
     <Compile Include="Assets\Scripts\Common\SpriteLoader.cs" />
     <Compile Include="Assets\Scripts\Common\Static\StaticData.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="Assets\Scripts\Items\ITool.cs" />
     <Compile Include="Assets\Scripts\Items\Tools\Pickaxe.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
+    <Compile Include="Assets\Scripts\UI\Inventory.cs" />
     <Compile Include="Assets\Scripts\World\GenerateChunk.cs" />
     <Compile Include="Assets\Scripts\World\GenerateChunks.cs" />
     <Compile Include="Assets\Scripts\World\OreSpawn.cs" />
@@ -332,6 +336,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Scripts\Common\Mechanics\ToolLeveling\" />
+    <Folder Include="Assets\Scripts\Common\Network\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

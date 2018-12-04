@@ -60,20 +60,13 @@ public class Player : MonoBehaviour
 
             if (!Physics2D.Raycast(rp, Vector2.zero, 0.1f))
             {
-                //GameObject dropped = Instantiate(Registry.Instance.BlockRegistry[0], gridPosition, Quaternion.identity);
-
                 GameObject hud = transform.GetChild(3).GetChild(0).gameObject;
 
                 if (!hud.GetComponentInChildren<SelectedOnHud>().gameObject.transform.GetChild(0).gameObject)
                     return;
-
                 
-
-                
-
                 GameObject selectedInHud = hud.GetComponentInChildren<SelectedOnHud>().gameObject.transform.GetChild(0).gameObject;
-
-
+                
                 if (selectedInHud.GetComponent<ItemStack>().RemoveAmount(1) <= 0)
                 {
                     Destroy(selectedInHud.GetComponent<ItemStack>());
@@ -81,7 +74,7 @@ public class Player : MonoBehaviour
                     selectedInHud.transform.parent = null;
                     selectedInHud.GetComponent<BoxCollider2D>().enabled = true;
                     Destroy(selectedInHud.transform.GetChild(0).gameObject);
-                    Destroy(selectedInHud.transform.GetChild(1).gameObject);
+                    //Destroy(selectedInHud.transform.GetChild(1).gameObject);
                     Destroy(selectedInHud.GetComponent<CanvasRenderer>());
                     Destroy(selectedInHud.GetComponent<Image>());
                     GameObject dropped = Instantiate(selectedInHud, gridPosition, Quaternion.identity);
@@ -91,7 +84,6 @@ public class Player : MonoBehaviour
                 }
                 else
                 {
-                    selectedInHud.GetComponent<ItemStack>().RemoveAmount(1);
                     GameObject dropped = Instantiate(selectedInHud, gridPosition, Quaternion.identity);
                     Destroy(dropped.GetComponent<ItemStack>());
                     dropped.GetComponent<BoxCollider2D>().enabled = true;
@@ -99,16 +91,6 @@ public class Player : MonoBehaviour
                     Destroy(dropped.transform.GetChild(0).gameObject);
                     Destroy(dropped.transform.GetChild(1).gameObject);
                 }
-
-                
-
-                
-
-
-                //gameObject.transform.GetChild(3).gameObject.GetComponent<ItemStack>().Amount--;
-                //if(gameObject.transform.GetChild(3).gameObject.GetComponent<ItemStack>().Amount <= 0)
-
-                //gameObject.transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>().enabled = true;
             }
         }
     }

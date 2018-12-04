@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Assets.Scripts.Common.Mechanics;
 using Assets.Scripts.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -70,6 +71,11 @@ namespace Assets.Scripts.Inventory
 
             child.GetComponent<Text>().text = Amount.ToString();
             return Amount;
+        }
+
+        public void SetStack()
+        {
+
         }
 
         public Sprite Sprite

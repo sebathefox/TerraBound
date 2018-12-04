@@ -47,12 +47,10 @@ public class Block : MonoBehaviour, IObject
         stack.AddComponent(GetType());
 
         stack.transform.position = this.transform.position;
-        //stack.GetComponent<RectTransform>().sizeDelta = new Vector2(6, 6);
         stack.GetComponent<RectTransform>().anchorMax = new Vector2(1, 1);
         stack.GetComponent<RectTransform>().anchorMin = new Vector2(0, 0);
         stack.transform.localScale = new Vector3(0.5f, 0.5f);
         stack.GetComponent<ItemStack>().Sprite = GetComponent<SpriteRenderer>().sprite;
-        //stack.GetComponent<BoxCollider2D>().isTrigger = true;
 
         Destroy(gameObject);
     }
@@ -67,16 +65,10 @@ public class Block : MonoBehaviour, IObject
     {
         if (destroyed) return;
         if (blockBreaked >= Hardness)
-        {
-            //gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             this.destroyed = true;
-        }
 
         if (Input.GetKey(KeyCode.Mouse0))
-        {
             blockBreaked += Time.deltaTime;
-
-        }
         else
             this.blockBreaked = 0.0f;
     }
@@ -113,10 +105,7 @@ public class Block : MonoBehaviour, IObject
     /// The image of the object
     /// </summary>
     public Sprite Image
-    {
-        get;
-        set;
-    }
+    { get; set; }
 
     /// <summary>
     /// The max number of blocks in a single stack

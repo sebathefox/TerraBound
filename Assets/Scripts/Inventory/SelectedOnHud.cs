@@ -15,8 +15,6 @@ namespace Assets.Scripts.Inventory
         {
             Image = Resources.Load<Image>("Sprites/player");
             GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Sprites/player");
-            //GetComponent<RectTransform>().localScale = new Vector3(32, 32);
-            //GetComponent<RectTransform>().localPosition = new Vector3(0, 0);
         }
 
         private Image Image { get; set; }
@@ -25,8 +23,7 @@ namespace Assets.Scripts.Inventory
         {
             int sibling = gameObject.transform.parent.GetSiblingIndex();
 
-            //print(sibling);
-
+            //TODO: Fix this part of the input
             if (Input.GetAxis("Mouse ScrollWheel") > 0f) // Forward
             {
                 print("FIRST");
@@ -35,7 +32,6 @@ namespace Assets.Scripts.Inventory
             }
             else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // Backwards
             {
-                //print("SECOND");
                 int tmp = gameObject.transform.parent.childCount;
                 print(tmp);
                 if(0 >= gameObject.transform.GetSiblingIndex())
